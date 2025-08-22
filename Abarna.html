@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title> Abarna.E – Portfolio</title>
+  <meta name="description" content="DCSE Graduate" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b1020;            /* page background behind sections */
+      --surface:#ffffff;       /* card + section background */
+      --text:#0e1325;          /* primary text */
+      --muted:#5b6479;         /* secondary text */
+      --brand:#2563eb;         /* primary brand */
+      --brand-2:#14b8a6;       /* accent */
+      --ring: rgba(37,99,235,.35);
+      --shadow: 0 10px 30px rgba(14,19,37,.08);
+      --radius: 16px;
+      --radius-lg: 22px;
+      --max: 1100px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:linear-gradient(180deg,#0b1020 0,#0b1020 240px,#eef2ff 240px,#f7f9ff 100%);
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+
+    /* layout helpers */
+    .container{width:100%; max-width:var(--max); margin-inline:auto; padding:0 20px}
+    .section{padding:56px 0}
+    .grid{display:grid; gap:24px}
+
+    /* navbar */
+    .nav{position:sticky; top:0; z-index:50; backdrop-filter:saturate(1.2) blur(8px); background:rgba(255,255,255,.7); border-bottom:1px solid rgba(14,19,37,.06)}
+    .nav-inner{display:flex; align-items:center; justify-content:space-between; height:64px}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700}
+    .brand svg{width:22px; height:22px; color:var(--brand)}
+    .nav-links{display:flex; gap:18px; align-items:center}
+    .nav-links a{font-weight:600; color:var(--muted)}
+    .nav-links a:hover{color:var(--text)}
+    .menu-btn{display:none; background:transparent; border:0}
+
+    /* mobile menu */
+    .mobile-menu{display:none; padding:12px 0; border-bottom:1px solid rgba(14,19,37,.06)}
+    .mobile-menu a{display:block; padding:10px 2px; color:var(--muted); font-weight:600}
+    .mobile-menu a:hover{color:var(--text)}
+
+    /* hero */
+    .hero{position:relative; background:linear-gradient(135deg,#1f3b8a 0,#2563eb 45%,#0ea5e9 100%); color:#fff; border-radius:0 0 var(--radius-lg) var(--radius-lg); overflow:hidden}
+    .hero:after{content:""; position:absolute; inset:auto -20% -60% -20%; height:220px; background:radial-gradient(60% 120% at 50% 0, rgba(255,255,255,.25), transparent 60%)}
+    .hero-inner{display:grid; grid-template-columns:1.4fr .6fr; gap:32px; align-items:center; padding:64px 0}
+    .badge{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.15); font-weight:600; letter-spacing:.2px}
+    .hero h1{margin:10px 0 12px; font-size:clamp(28px,4vw,44px); line-height:1.15}
+    .hero p{color:rgba(255,255,255,.92); font-size:clamp(14px,2.2vw,18px)}
+    .cta{display:flex; gap:12px; margin-top:18px; flex-wrap:wrap}
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:12px; font-weight:700; border:1px solid transparent; box-shadow:0 6px 16px rgba(0,0,0,.08)}
+    .btn-primary{background:#fff; color:#0e1325}
+    .btn-outline{background:transparent; color:#fff; border-color:rgba(255,255,255,.6)}
+    .hero-card{justify-self:end; background:linear-gradient(160deg,#0ea5e9 0,#0ea5e9 2%, #1d4ed8 98%); padding:28px; border-radius:20px; width:min(100%,360px); aspect-ratio:1/1; display:grid; place-content:center; box-shadow:0 20px 60px rgba(3,7,18,.3)}
+    .pfp{width:120px; height:120px; border-radius:999px; background:radial-gradient(circle at 30% 30%, #fff 0 25%, #e2e8ff 26% 100%); margin:0 auto 16px auto; border:6px solid rgba(255,255,255,.35)}
+    .hero-card h3{text-align:center; color:#eaf1ff; margin:6px 0 0; font-weight:800}
+
+    /* section headings */
+    .section-title{font-size:clamp(22px,3.2vw,32px); text-align:center; margin:0 0 24px}
+    .muted{color:var(--muted)}
+
+    /* about */
+    .about{background:var(--surface); border-radius:var(--radius-lg); box-shadow:var(--shadow)}
+    .about-grid{display:grid; grid-template-columns:1fr 1.2fr; gap:28px; align-items:center}
+    .about-media{border-radius:16px; overflow:hidden; box-shadow:var(--shadow)}
+    .about-media .placeholder{aspect-ratio:16/10; display:grid; place-content:center; color:#fff; font-weight:800; letter-spacing:.5px; background:radial-gradient(120% 100% at 10% 10%, #0ea5e9, #1d4ed8)}
+    .chipset{display:flex; gap:10px; flex-wrap:wrap; margin:16px 0 6px}
+    .chip{padding:8px 10px; border-radius:999px; background:#f1f5ff; color:#1f2a4d; font-weight:700; font-size:12px}
+
+    /* skills */
+    .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+    .card{background:var(--surface); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow); border:1px solid rgba(14,19,37,.06)}
+    .card h4{margin:2px 0 10px}
+    .list{margin:0; padding-left:18px; color:var(--muted)}
+
+    /* projects */
+    .projects{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+    .project{background:var(--surface); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); border:1px solid rgba(14,19,37,.06)}
+    .project .thumb{height:120px; background:linear-gradient(135deg,#0ea5e9, #1d4ed8);}
+    .project .content{padding:18px}
+    .project h5{margin:4px 0 8px}
+    .project a.btn-sm{display:inline-block; margin-top:8px; padding:8px 12px; border-radius:10px; border:1px solid rgba(14,19,37,.12); font-weight:700}
+
+    /* contact */
+    .contact{background:var(--surface); border-radius:var(--radius-lg); box-shadow:var(--shadow)}
+    .contact-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:18px}
+    .contact-card{background:#fbfdff; border:1px solid rgba(14,19,37,.06); border-radius:14px; padding:18px}
+    .contact-card b{display:block; margin-bottom:6px}
+    .contact .actions{margin-top:18px}
+
+    /* footer */
+    footer{color:#e5e9ff; text-align:center; padding:28px 0; font-size:14px}
+
+    /* responsiveness */
+    @media (max-width: 980px){
+      .hero-inner{grid-template-columns:1fr;}
+      .hero-card{justify-self:start}
+      .about-grid{grid-template-columns:1fr}
+      .cards{grid-template-columns:1fr 1fr}
+      .projects{grid-template-columns:1fr 1fr}
+      .contact-grid{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width: 640px){
+      .nav-links{display:none}
+      .menu-btn{display:inline-grid; place-items:center; width:40px; height:40px; border-radius:10px}
+      .cards, .projects{grid-template-columns:1fr}
+      .contact-grid{grid-template-columns:1fr}
+      .section{padding:44px 0}
+      .hero-inner{padding:44px 0}
+      .hero-card{width:100%}
+      .mobile-menu.show{display:block}
+    }
+  </style>
+</head>
+<body>
+  <!-- nav -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#home" aria-label="Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3 7h7l-5.5 4 2.5 7L12 16l-7 4 2.5-7L2 9h7z"/></svg>
+        <span>Abarna.E</span>
+      </a>
+      <div class="nav-links" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <button class="menu-btn" aria-label="Toggle Menu" onclick="document.querySelector('.mobile-menu').classList.toggle('show')">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="container mobile-menu" role="dialog" aria-label="Mobile menu">
+      <a href="#about" onclick="this.closest('.mobile-menu').classList.remove('show')">About</a>
+      <a href="#skills" onclick="this.closest('.mobile-menu').classList.remove('show')">Skills</a>
+      <a href="#projects" onclick="this.closest('.mobile-menu').classList.remove('show')">Projects</a>
+      <a href="#contact" onclick="this.closest('.mobile-menu').classList.remove('show')">Contact</a>
+    </div>
+  </nav>
+
+  <!-- hero -->
+  <header id="home" class="hero">
+    <div class="container hero-inner">
+      <div>
+        <span class="badge">Full‑Stack Web Developer</span>
+        <h1>Hi, I'm <b>Abarna</b> – DCSE Graduate </h1>
+        <p>Building responsive, accessible websites and applications that create real‑world value. I love clean UI, well‑structured APIs, and solving tricky problems.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#contact">Get In Touch</a>
+          <a class="btn btn-outline" href="#projects">View My Work</a>
+        </div>
+      </div>
+      <aside class="hero-card" aria-hidden="true">
+        <div class="pfp"></div>
+        <h3>Ready to Collaborate</h3>
+      </aside>
+    </div>
+  </header>
+
+  <!-- about -->
+  <section id="about" class="section">
+    <div class="container about">
+      <div class="section" style="padding:28px">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-grid">
+          <div class="about-media">
+            <div class="placeholder">HTML • CSS • JS</div>
+          </div>
+          <div>
+            <p>I’m a web developer with a strong foundation in both frontend and backend technologies. I focus on creating fast, accessible, and delightful user experiences, while keeping codebases clean and maintainable.</p>
+            <p>Currently pursuing my Diploma in Computer Science, I enjoy learning new tools and building projects that solve real‑world problems.</p>
+            <div class="chipset">
+              <span class="chip">Frontend Development</span>
+              <span class="chip">Backend Development</span>
+              <span class="chip">Responsive Design</span>
+              <span class="chip">Problem Solving</span>
+            </div>
+            <div class="cta">
+              <a class="btn btn-primary" href="#projects">View My Work</a>
+              <a class="btn btn-outline" href="#" download>Download CV</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- skills -->
+  <section id="skills" class="section">
+    <div class="container">
+      <h2 class="section-title">My Skills</h2>
+      <div class="cards">
+        <div class="card">
+          <h4>Frontend Development</h4>
+          <ul class="list">
+            <li>HTML5, CSS3, JavaScript</li>
+            <li>React basics & SPA concepts</li>
+            <li>Bootstrap & responsive layouts</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Backend Development</h4>
+          <ul class="list">
+            <li>Node.js fundamentals</li>
+            <li>PHP and REST API basics</li>
+            <li>Database management (MySQL)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Tools & Others</h4>
+          <ul class="list">
+            <li>Git & GitHub</li>
+            <li>VS Code</li>
+            <li>Responsive & accessible design</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- projects -->
+  <section id="projects" class="section">
+    <div class="container">
+      <h2 class="section-title">My Projects</h2>
+      <div class="projects">
+        <article class="project">
+          <div class="thumb" role="img" aria-label="Gradient placeholder for screenshot"></div>
+          <div class="content">
+            <h5>Personal Portfolio</h5>
+            <p class="muted">A responsive portfolio built using HTML, CSS, and Bootstrap to showcase work and skills.</p>
+            <a class="btn-sm" href="#">View Project</a>
+          </div>
+        </article>
+        <article class="project">
+          <div class="thumb" role="img" aria-label="Gradient placeholder for screenshot"></div>
+          <div class="content">
+            <h5>E‑Commerce Website</h5>
+            <p class="muted">Online store built with HTML, CSS, JavaScript, PHP and MySQL database.</p>
+            <a class="btn-sm" href="#">View Project</a>
+          </div>
+        </article>
+        <article class="project">
+          <div class="thumb" role="img" aria-label="Gradient placeholder for screenshot"></div>
+          <div class="content">
+            <h5>Chat Application</h5>
+            <p class="muted">Real‑time chat app using Node.js, Socket.io and modern web technologies.</p>
+            <a class="btn-sm" href="#">View Project</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- contact -->
+  <section id="contact" class="section">
+    <div class="container contact">
+      <div class="section" style="padding:28px">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-grid">
+          <div class="contact-card"><b>Email</b><span>abarna.e835m@gmail.com</span></div>
+          <div class="contact-card"><b>Phone</b><span>+91 9876543210</span></div>
+          <div class="contact-card"><b>LinkedIn</b><span>linkedin.com/in/myportfolio</span></div>
+          <div class="contact-card"><b>GitHub</b><span>github.com/myportfolio</span></div>
+        </div>
+        <div class="actions cta">
+          <a class="btn btn-primary" href="mailto:myportfolio@gmail.com">Send Message</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">© <span id="year"></span>Abarna.E — All rights reserved.</div>
+  </footer>
+
+  <script>
+    // set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
